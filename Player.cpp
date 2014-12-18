@@ -11,40 +11,45 @@ void CPlayer::Move()
 {
 	
 	float nearAngle = 0;
+	target = nullptr;
+	CMoverList* applyList[] = {
+		&EnemyList,
+		&ItemList,
+		&BlockList
+	};
 
-	if( target == nullptr ) 
-	{
-		CMoverList* applyList[] = {
-			&EnemyList,
-			&ItemList,
-			&BlockList
-		};
-
-		auto GetTarget = [&]( CMover* m ) {
+	auto GetTarget = [&]( CMover* m ) {
 			
-			CVector toTarget = m->Position - Position;
+		CVector toTarget = m->Position - Position;
 
-			if( !IsWatched( (CMyMover*)m ) ) return;
+		if( !IsWatched( (CMyMover*)m ) ) return;
 
-			if( Length( toTarget ) > 10 ) {
-				((CMyMover*)target)->watchedTime = 0;
-				return;
-			}
-			float angle = Dot( Camera->AxisZ(), toTarget );
-			if( angle < 0.5f ) {
-				((CMyMover*)target)->watchedTime = 0;
-				return;
-			}
-			if( nearAngle < angle ) {
-				angle = nearAngle;
-				target = m;
-				((CMyMover*)target)->watchedTime++;
-			}
-		};
-
-		for( CMoverList* list : applyList ) {
-			list->Apply( GetTarget );
+		if( 1 < Length( toTarget ) &&  Length( toTarget ) > 20 ) {
+			((CMyMover*)m)->watchedTime = 0;
+			return;
 		}
+		float angle = Dot( Camera->AxisZ(), Normalize(toTarget) );
+		if( angle < 0.8f ) {
+			((CMyMover*)m)->watchedTime = 0;
+			return;
+		}
+		if( nearAngle < angle ) {
+			angle = nearAngle;
+			int timer = ++((CMyMover*)m)->watchedTime;
+			if( timer > 60 ) {
+				target = m;
+			}
+		}
+	};
+
+	for( CMoverList* list : applyList ) {
+		list->Apply( GetTarget );
+	}
+	
+	if( target != nullptr ) {
+		Rotation = CQuaternion( AXIS_Z, target->Position - Position );
+		Velocity = Normalize( target->Position - Position )*0.1f;
+		Position += Velocity;
 	}
 	Rotation = Camera->Rotation;
 }

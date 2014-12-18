@@ -4,6 +4,7 @@
 void CEnemy::Reset() {
 	Model=GetModel(L"BearLight.x");
 	Rotation=RotationY(0.5f);
+	canWatch = true;
 }
 
 // “G‚ÌˆÚ“®
