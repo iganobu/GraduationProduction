@@ -1,7 +1,9 @@
 #include "Main.h"
 
 // ƒJƒƒ‰‚Ì‰Šú‰»
-void CCamera::Reset() {
+void CCamera::Reset() 
+{
+
 }
 
 // ƒJƒƒ‰‚ÌˆÚ“®
