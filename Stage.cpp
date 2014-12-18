@@ -10,7 +10,8 @@ void CStage::Reset() {
 	Model=GetModel(L"room.x");
 	Position.Y=-1;
 	Scale=5;
-	for (int i=0; i<30; i++) New<CPlayer>(CVector(Random(-20, 20), 0, Random(-20, 20)));
+	for (int i=0; i<30; i++) New<CEnemy>(CVector(Random(-20, 20), 0, Random(-20, 20)));
+	New<CPlayer>();
 }
 
 // ステージの移動

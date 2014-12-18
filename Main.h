@@ -21,4 +21,5 @@ extern int Score;
 #include "Weapon.h"
 
 extern CCamera* Camera;
+extern CPlayer* Player;
 

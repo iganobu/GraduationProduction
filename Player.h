@@ -6,5 +6,6 @@ public:
 	CPlayer() : CMyMover(PlayerList) {}
 	void Reset();
 	void Move();
+	bool IsWatched( CMyMover* );
 };
 

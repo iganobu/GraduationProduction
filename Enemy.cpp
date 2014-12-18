@@ -8,5 +8,6 @@ void CEnemy::Reset() {
 
 // “G‚ÌˆÚ“®
 void CEnemy::Move() {
+	Rotation *= RotationY( 0.01f );
 }
 

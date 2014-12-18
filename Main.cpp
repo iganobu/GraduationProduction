@@ -13,6 +13,7 @@ CMoverList CameraList(sizeof(CCamera), 100);
 CMoverList LightList(sizeof(CLight), 100);
 
 CCamera* Camera;
+CPlayer* Player;
 int Score;
 
 // ÉQÅ[ÉÄñ{ëÃ
